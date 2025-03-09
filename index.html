@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>March Madness Predictor 2025</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            display: inline-block;
+            width: 80px;
+            margin: 10px 0;
+        }
+        input[type="number"] {
+            width: 100px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .region {
+            margin: 10px 0;
+        }
+        .matchup {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>March Madness Predictor 2025</h1>
+    
+    <div class="controls">
+        <h3>Custom Weights (Must Sum to 1.0)</h3>
+        <label>AdjO:</label><input type="number" id="adjO" value="0.35" step="0.01" min="0" max="1"><br>
+        <label>AdjD:</label><input type="number" id="adjD" value="0.35" step="0.01" min="0" max="1"><br>
+        <label>AdjT:</label><input type="number" id="adjT" value="0.20" step="0.01" min="0" max="1"><br>
+        <label>Luck:</label><input type="number" id="luck" value="0.10" step="0.01" min="0" max="1"><br>
+        <button onclick="predictTournament()">Predict Bracket</button>
+    </div>
+
+    <div id="result">
+        <h2>Predicted Bracket</h2>
+        <p>Adjust weights and click "Predict Bracket" to see the results.</p>
+    </div>
+
+    <script>
+        // Projected 64-team field with KenPom stats (hypothetical for March 9, 2025)
+        const teamsData = [
+            // East Region
+            { Seed: 1, Region: "East", Team: "Duke", AdjO: 124.6, AdjD: 87.8, AdjT: 70.1, Luck: 0.05 },
+            { Seed: 16, Region: "East", Team: "Howard", AdjO: 98.2, AdjD: 112.4, AdjT: 68.5, Luck: 0.03 },
+            { Seed: 8, Region: "East", Team: "St. John's", AdjO: 112.5, AdjD: 96.8, AdjT: 71.2, Luck: 0.04 },
+            { Seed: 9, Region: "East", Team: "Texas A&M", AdjO: 114.3, AdjD: 98.1, AdjT: 67.9, Luck: 0.02 },
+            { Seed: 5, Region: "East", Team: "Marquette", AdjO: 116.8, AdjD: 94.5, AdjT: 69.8, Luck: 0.06 },
+            { Seed: 12, Region: "East", Team: "New Mexico", AdjO: 110.7, AdjD: 99.2, AdjT: 72.3, Luck: 0.152 },
+            { Seed: 4, Region: "East", Team: "Kentucky", AdjO: 118.9, AdjD: 97.6, AdjT: 68.4, Luck: 0.03 },
+            { Seed: 13, Region: "East", Team: "Samford", AdjO: 108.4, AdjD: 103.5, AdjT: 70.9, Luck: 0.05 },
+            { Seed: 6, Region: "East", Team: "Creighton", AdjO: 117.2, AdjD: 95.8, AdjT: 67.5, Luck: 0.04 },
+            { Seed: 11, Region: "East", Team: "BYU", AdjO: 113.6, AdjD: 98.9, AdjT: 69.1, Luck: 0.03 },
+            { Seed: 3, Region: "East", Team: "Tennessee", AdjO: 119.5, AdjD: 92.3, AdjT: 66.8, Luck: 0.02 },
+            { Seed: 14, Region: "East", Team: "Vermont", AdjO: 106.7, AdjD: 101.4, AdjT: 68.2, Luck: 0.04 },
+            { Seed: 7, Region: "East", Team: "Michigan State", AdjO: 115.4, AdjD: 96.2, AdjT: 70.5, Luck: 0.05 },
+            { Seed: 10, Region: "East", Team: "Oregon", AdjO: 114.1, AdjD: 99.7, AdjT: 69.3, Luck: 0.03 },
+            { Seed: 2, Region: "East", Team: "UConn", AdjO: 122.8, AdjD: 89.6, AdjT: 67.9, Luck: 0.04 },
+            { Seed: 15, Region: "East", Team: "Colgate", AdjO: 105.3, AdjD: 104.8, AdjT: 66.5, Luck: 0.02 },
+            // West Region
+            { Seed: 1, Region: "West", Team: "Auburn", AdjO: 125.2, AdjD: 88.4, AdjT: 69.7, Luck: 0.03 },
+            { Seed: 16, Region: "West", Team: "Wagner", AdjO: 97.9, AdjD: 113.6, AdjT: 67.8, Luck: 0.02 },
+            { Seed: 8, Region: "West", Team: "Gonzaga", AdjO: 119.8, AdjD: 94.2, AdjT: 71.5, Luck: 0.05 },
+            { Seed: 9, Region: "West", Team: "Wisconsin", AdjO: 113.9, AdjD: 97.5, AdjT: 68.3, Luck: 0.04 },
+            { Seed: 5, Region: "West", Team: "Baylor", AdjO: 117.6, AdjD: 95.1, AdjT: 70.2, Luck: 0.03 },
+            { Seed: 12, Region: "West", Team: "Grand Canyon", AdjO: 109.5, AdjD: 100.8, AdjT: 69.4, Luck: 0.06 },
+            { Seed: 4, Region: "West", Team: "Arizona", AdjO: 118.3, AdjD: 93.7, AdjT: 68.9, Luck: 0.04 },
+            { Seed: 13, Region: "West", Team: "McNeese State", AdjO: 107.8, AdjD: 102.6, AdjT: 70.1, Luck: 0.05 },
+            { Seed: 6, Region: "West", Team: "Illinois", AdjO: 116.5, AdjD: 96.4, AdjT: 69.6, Luck: 0.03 },
+            { Seed: 11, Region: "West", Team: "Dayton", AdjO: 112.7, AdjD: 99.3, AdjT: 68.5, Luck: 0.04 },
+            { Seed: 3, Region: "West", Team: "Iowa State", AdjO: 120.1, AdjD: 91.8, AdjT: 67.4, Luck: 0.02 },
+            { Seed: 14, Region: "West", Team: "Oakland", AdjO: 106.2, AdjD: 103.9, AdjT: 69.8, Luck: 0.03 },
+            { Seed: 7, Region: "West", Team: "Texas", AdjO: 115.9, AdjD: 95.6, AdjT: 70.8, Luck: 0.05 },
+            { Seed: 10, Region: "West", Team: "Kansas", AdjO: 114.8, AdjD: 98.2, AdjT: 68.7, Luck: 0.03 },
+            { Seed: 2, Region: "West", Team: "Alabama", AdjO: 123.4, AdjD: 90.5, AdjT: 71.1, Luck: 0.04 },
+            { Seed: 15, Region: "West", Team: "Montana State", AdjO: 104.9, AdjD: 105.7, AdjT: 67.3, Luck: 0.02 },
+            // South Region
+            { Seed: 1, Region: "South", Team: "Houston", AdjO: 121.7, AdjD: 86.9, AdjT: 66.5, Luck: 0.03 },
+            { Seed: 16, Region: "South", Team: "Texas Southern", AdjO: 99.1, AdjD: 111.8, AdjT: 68.9, Luck: 0.02 },
+            { Seed: 8, Region: "South", Team: "Mississippi State", AdjO: 113.2, AdjD: 97.9, AdjT: 69.5, Luck: 0.04 },
+            { Seed: 9, Region: "South", Team: "Oklahoma", AdjO: 114.5, AdjD: 96.3, AdjT: 70.4, Luck: 0.03 },
+            { Seed: 5, Region: "South", Team: "Texas Tech", AdjO: 116.9, AdjD: 94.8, AdjT: 68.1, Luck: 0.05 },
+            { Seed: 12, Region: "South", Team: "James Madison", AdjO: 110.3, AdjD: 100.5, AdjT: 71.2, Luck: 0.07 },
+            { Seed: 4, Region: "South", Team: "North Carolina", AdjO: 118.1, AdjD: 93.4, AdjT: 70.7, Luck: 0.04 },
+            { Seed: 13, Region: "South", Team: "Louisiana Tech", AdjO: 108.6, AdjD: 102.1, AdjT: 69.3, Luck: 0.03 },
+            { Seed: 6, Region: "South", Team: "UCLA", AdjO: 115.7, AdjD: 96.5, AdjT: 68.8, Luck: 0.04 },
+            { Seed: 11, Region: "South", Team: "Providence", AdjO: 112.9, AdjD: 99.1, AdjT: 67.6, Luck: 0.05 },
+            { Seed: 3, Region: "South", Team: "Purdue", AdjO: 119.4, AdjD: 92.7, AdjT: 69.9, Luck: 0.03 },
+            { Seed: 14, Region: "South", Team: "UC Irvine", AdjO: 107.5, AdjD: 101.8, AdjT: 68.2, Luck: 0.04 },
+            { Seed: 7, Region: "South", Team: "Arkansas", AdjO: 116.2, AdjD: 95.9, AdjT: 70.3, Luck: 0.05 },
+            { Seed: 10, Region: "South", Team: "Cincinnati", AdjO: 113.8, AdjD: 98.6, AdjT: 67.8, Luck: 0.03 },
+            { Seed: 2, Region: "South", Team: "Florida", AdjO: 122.5, AdjD: 90.1, AdjT: 71.6, Luck: 0.04 },
+            { Seed: 15, Region: "South", Team: "South Dakota State", AdjO: 106.1, AdjD: 104.3, AdjT: 68.4, Luck: 0.02 },
+            // Midwest Region
+            { Seed: 1, Region: "Midwest", Team: "Gonzaga", AdjO: 123.9, AdjD: 89.2, AdjT: 71.4, Luck: 0.05 },
+            { Seed: 16, Region: "Midwest", Team: "Stetson", AdjO: 98.7, AdjD: 112.9, AdjT: 67.5, Luck: 0.03 },
+            { Seed: 8, Region: "Midwest", Team: "Maryland", AdjO: 113.5, AdjD: 97.2, AdjT: 69.8, Luck: 0.04 },
+            { Seed: 9, Region: "Midwest", Team: "Clemson", AdjO: 114.7, AdjD: 96.9, AdjT: 70.1, Luck: 0.03 },
+            { Seed: 5, Region: "Midwest", Team: "Michigan", AdjO: 117.1, AdjD: 95.4, AdjT: 68.6, Luck: 0.05 },
+            { Seed: 12, Region: "Midwest", Team: "Liberty", AdjO: 109.8, AdjD: 100.2, AdjT: 69.7, Luck: 0.06 },
+            { Seed: 4, Region: "Midwest", Team: "Ohio State", AdjO: 118.4, AdjD: 93.9, AdjT: 70.5, Luck: 0.04 },
+            { Seed: 13, Region: "Midwest", Team: "Yale", AdjO: 108.2, AdjD: 102.8, AdjT: 68.9, Luck: 0.03 },
+            { Seed: 6, Region: "Midwest", Team: "Villanova", AdjO: 116.3, AdjD: 96.1, AdjT: 67.7, Luck: 0.04 },
+            { Seed: 11, Region: "Midwest", Team: "NC State", AdjO: 112.6, AdjD: 99.4, AdjT: 70.2, Luck: 0.07 },
+            { Seed: 3, Region: "Midwest", Team: "Indiana", AdjO: 119.7, AdjD: 92.5, AdjT: 69.3, Luck: 0.03 },
+            { Seed: 14, Region: "Midwest", Team: "Akron", AdjO: 107.9, AdjD: 103.2, AdjT: 68.1, Luck: 0.04 },
+            { Seed: 7, Region: "Midwest", Team: "Xavier", AdjO: 115.6, AdjD: 95.7, AdjT: 70.9, Luck: 0.05 },
+            { Seed: 10, Region: "Midwest", Team: "Nebraska", AdjO: 113.4, AdjD: 98.8, AdjT: 67.4, Luck: 0.03 },
+            { Seed: 2, Region: "Midwest", Team: "Kansas", AdjO: 122.1, AdjD: 90.8, AdjT: 71.8, Luck: 0.04 },
+            { Seed: 15, Region: "Midwest", Team: "Norfolk State", AdjO: 105.7, AdjD: 104.6, AdjT: 68.3, Luck: 0.02 }
+        ];
+
+        function calculateTeamScore(team, weights) {
+            return (weights.AdjO * team.AdjO) +
+                   (weights.AdjD * (200 - team.AdjD)) +  // Invert AdjD (lower is better)
+                   (weights.AdjT * team.AdjT) +
+                   (weights.Luck * team.Luck);
+        }
+
+        function simulateMatchup(team1, team2, weights) {
+            let score1 = calculateTeamScore(team1, weights);
+            let score2 = calculateTeamScore(team2, weights);
+
+            // Add randomness (±10%)
+            const random1 = 0.9 + Math.random() * 0.2;
+            const random2 = 0.9 + Math.random() * 0.2;
+            score1 *= random1;
+            score2 *= random2;
+
+            // Upset boost for lower seeds (12+ seeds get +5%)
+            if (team1.Seed >= 12) score1 *= 1.05;
+            if (team2.Seed >= 12) score2 *= 1.05;
+
+            return score1 > score2 ? team1 : team2;
+        }
+
+        function simulateRound(teams, weights) {
+            const winners = [];
+            for (let i = 0; i < teams.length; i += 2) {
+                const winner = simulateMatchup(teams[i], teams[i + 1], weights);
+                winners.push(winner);
+            }
+            return winners;
+        }
+
+        function predictTournament() {
+            // Get custom weights
+            const weights = {
+                AdjO: parseFloat(document.getElementById("adjO").value),
+                AdjD: parseFloat(document.getElementById("adjD").value),
+                AdjT: parseFloat(document.getElementById("adjT").value),
+                Luck: parseFloat(document.getElementById("luck").value)
+            };
+
+            // Validate weights sum to 1.0
+            const totalWeight = weights.AdjO + weights.AdjD + weights.AdjT + weights.Luck;
+            if (Math.abs(totalWeight - 1.0) > 0.01) {
+                alert("Weights must sum to 1.0 (current sum: " + totalWeight.toFixed(2) + ")");
+                return;
+            }
+
+            // Split teams by region
+            const regions = {
+                "East": teamsData.filter(t => t.Region === "East").sort((a, b) => a.Seed - b.Seed),
+                "West": teamsData.filter(t => t.Region === "West").sort((a, b) => a.Seed - b.Seed),
+                "South": teamsData.filter(t => t.Region === "South").sort((a, b) => a.Seed - b.Seed),
+                "Midwest": teamsData.filter(t => t.Region === "Midwest").sort((a, b) => a.Seed - b.Seed)
+            };
+
+            // Simulate each region
+            const bracket = {};
+            for (const region in regions) {
+                let currentRound = regions[region];
+                bracket[region] = {
+                    "Round of 64": [],
+                    "Round of 32": [],
+                    "Sweet 16": [],
+                    "Elite 8": []
+                };
+
+                // Round of 64
+                currentRound = simulateRound(currentRound, weights);
+                bracket[region]["Round of 64"] = currentRound;
+
+                // Round of 32
+                currentRound = simulateRound(currentRound, weights);
+                bracket[region]["Round of 32"] = currentRound;
+
+                // Sweet 16
+                currentRound = simulateRound(currentRound, weights);
+                bracket[region]["Sweet 16"] = currentRound;
+
+                // Elite 8
+                currentRound = simulateRound(currentRound, weights);
+                bracket[region]["Elite 8"] = currentRound;
+            }
+
+            // Final Four
+            const finalFour = [
+                bracket["East"]["Elite 8"][0],
+                bracket["West"]["Elite 8"][0],
+                bracket["South"]["Elite 8"][0],
+                bracket["Midwest"]["Elite 8"][0]
+            ];
+            const semi1 = simulateRound(finalFour.slice(0, 2), weights);
+            const semi2 = simulateRound(finalFour.slice(2, 4), weights);
+            const championship = simulateRound([...semi1, ...semi2], weights);
+
+            // Display results
+            let html = "<h2>Predicted Bracket</h2>";
+            for (const region in bracket) {
+                html += `<h3>${region} Region</h3>`;
+                html += "<div class='region'>";
+                for (const round in bracket[region]) {
+                    html += `<strong>${round}:</strong><br>`;
+                    bracket[region][round].forEach(team => {
+                        html += `<div class="matchup">(${team.Seed}) ${team.Team}</div>`;
+                    });
+                    html += "<br>";
+                }
+                html += "</div>";
+            }
+
+            html += "<h3>Final Four</h3>";
+            html += `<div class="matchup">${finalFour[0].Team} vs. ${finalFour[1].Team} → ${semi1[0].Team}</div>`;
+            html += `<div class="matchup">${finalFour[2].Team} vs. ${finalFour[3].Team} → ${semi2[0].Team}</div>`;
+            html += "<h3>National Championship</h3>";
+            html += `<div class="matchup">${semi1[0].Team} vs. ${semi2[0].Team} → <strong>${championship[0].Team}</strong></div>`;
+            html += `<p><strong>Predicted Champion: ${championship[0].Team}</strong></p>`;
+
+            document.getElementById("result").innerHTML = html;
+        }
+    </script>
+</body>
+</html>
