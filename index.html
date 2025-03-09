@@ -3,74 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>March Madness Predictor 2025</title>
+    <title>Bracket Buster 2025</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-        }
-        h1, h2, h3 {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
             color: #333;
         }
-        .controls {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        h1 {
+            text-align: center;
+            color: #1a73e8;
             margin-bottom: 20px;
         }
-        label {
-            display: inline-block;
-            width: 80px;
-            margin: 10px 0;
-        }
-        input[type="number"] {
-            width: 100px;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #result {
+        .controls {
+            max-width: 600px;
+            margin: 0 auto 30px;
             background: white;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .region {
+        .controls h3 {
+            margin-top: 0;
+            color: #555;
+        }
+        .weight-input {
+            display: flex;
+            align-items: center;
             margin: 10px 0;
         }
+        .weight-input label {
+            width: 80px;
+            font-weight: bold;
+            color: #666;
+        }
+        .weight-input input {
+            width: 100px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        button {
+            display: block;
+            width: 200px;
+            margin: 20px auto 0;
+            padding: 12px;
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1557b0;
+        }
+        #result {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .bracket-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .region {
+            flex: 1;
+            min-width: 250px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .region h3 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 15px;
+        }
+        .round {
+            margin-bottom: 20px;
+        }
+        .round h4 {
+            margin: 0 0 10px;
+            color: #555;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
         .matchup {
-            margin-left: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin: 4px 0;
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .team {
+            flex: 1;
+            text-align: left;
+        }
+        .final-four, .championship {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .final-four h3, .championship h3 {
+            color: #1a73e8;
+            margin-bottom: 15px;
+        }
+        .championship .matchup {
+            display: inline-block;
+            width: 300px;
+            background: #e8f0fe;
+            border: 1px solid #1a73e8;
+        }
+        .champion {
+            font-weight: bold;
+            color: #d32f2f;
+            margin-top: 10px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <h1>March Madness Predictor 2025</h1>
+    <h1>Bracket Buster 2025</h1>
     
     <div class="controls">
         <h3>Custom Weights (Must Sum to 1.0)</h3>
-        <label>AdjO:</label><input type="number" id="adjO" value="0.35" step="0.01" min="0" max="1"><br>
-        <label>AdjD:</label><input type="number" id="adjD" value="0.35" step="0.01" min="0" max="1"><br>
-        <label>AdjT:</label><input type="number" id="adjT" value="0.20" step="0.01" min="0" max="1"><br>
-        <label>Luck:</label><input type="number" id="luck" value="0.10" step="0.01" min="0" max="1"><br>
+        <div class="weight-input">
+            <label>AdjO:</label><input type="number" id="adjO" value="0.35" step="0.01" min="0" max="1">
+        </div>
+        <div class="weight-input">
+            <label>AdjD:</label><input type="number" id="adjD" value="0.35" step="0.01" min="0" max="1">
+        </div>
+        <div class="weight-input">
+            <label>AdjT:</label><input type="number" id="adjT" value="0.20" step="0.01" min="0" max="1">
+        </div>
+        <div class="weight-input">
+            <label>Luck:</label><input type="number" id="luck" value="0.10" step="0.01" min="0" max="1">
+        </div>
         <button onclick="predictTournament()">Predict Bracket</button>
     </div>
 
     <div id="result">
-        <h2>Predicted Bracket</h2>
-        <p>Adjust weights and click "Predict Bracket" to see the results.</p>
+        <div class="bracket-container">
+            <div class="region" id="east"></div>
+            <div class="region" id="west"></div>
+            <div class="region" id="south"></div>
+            <div class="region" id="midwest"></div>
+        </div>
+        <div class="final-four" id="final-four"></div>
+        <div class="championship" id="championship"></div>
     </div>
 
     <script>
@@ -148,7 +237,7 @@
 
         function calculateTeamScore(team, weights) {
             return (weights.AdjO * team.AdjO) +
-                   (weights.AdjD * (200 - team.AdjD)) +  // Invert AdjD (lower is better)
+                   (weights.AdjD * (200 - team.AdjD)) +
                    (weights.AdjT * team.AdjT) +
                    (weights.Luck * team.Luck);
         }
@@ -188,7 +277,7 @@
                 Luck: parseFloat(document.getElementById("luck").value)
             };
 
-            // Validate weights sum to 1.0
+            // Validate weights
             const totalWeight = weights.AdjO + weights.AdjD + weights.AdjT + weights.Luck;
             if (Math.abs(totalWeight - 1.0) > 0.01) {
                 alert("Weights must sum to 1.0 (current sum: " + totalWeight.toFixed(2) + ")");
@@ -208,63 +297,75 @@
             for (const region in regions) {
                 let currentRound = regions[region];
                 bracket[region] = {
-                    "Round of 64": [],
-                    "Round of 32": [],
-                    "Sweet 16": [],
-                    "Elite 8": []
+                    "Round of 64": currentRound,
+                    "Round of 32": simulateRound(currentRound, weights),
+                    "Sweet 16": null,
+                    "Elite 8": null
                 };
-
-                // Round of 64
-                currentRound = simulateRound(currentRound, weights);
-                bracket[region]["Round of 64"] = currentRound;
-
-                // Round of 32
-                currentRound = simulateRound(currentRound, weights);
-                bracket[region]["Round of 32"] = currentRound;
-
-                // Sweet 16
-                currentRound = simulateRound(currentRound, weights);
-                bracket[region]["Sweet 16"] = currentRound;
-
-                // Elite 8
-                currentRound = simulateRound(currentRound, weights);
-                bracket[region]["Elite 8"] = currentRound;
+                bracket[region]["Sweet 16"] = simulateRound(bracket[region]["Round of 32"], weights);
+                bracket[region]["Elite 8"] = simulateRound(bracket[region]["Sweet 16"], weights);
             }
 
             // Final Four
-            const finalFour = [
+            const finalFourTeams = [
                 bracket["East"]["Elite 8"][0],
                 bracket["West"]["Elite 8"][0],
                 bracket["South"]["Elite 8"][0],
                 bracket["Midwest"]["Elite 8"][0]
             ];
-            const semi1 = simulateRound(finalFour.slice(0, 2), weights);
-            const semi2 = simulateRound(finalFour.slice(2, 4), weights);
-            const championship = simulateRound([...semi1, ...semi2], weights);
+            const semiFinals = simulateRound(finalFourTeams, weights);
+            const championship = simulateRound(semiFinals, weights);
 
-            // Display results
-            let html = "<h2>Predicted Bracket</h2>";
+            // Display bracket
+            const rounds = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8"];
             for (const region in bracket) {
-                html += `<h3>${region} Region</h3>`;
-                html += "<div class='region'>";
-                for (const round in bracket[region]) {
-                    html += `<strong>${round}:</strong><br>`;
-                    bracket[region][round].forEach(team => {
-                        html += `<div class="matchup">(${team.Seed}) ${team.Team}</div>`;
-                    });
-                    html += "<br>";
-                }
-                html += "</div>";
+                let html = `<h3>${region} Region</h3>`;
+                rounds.forEach(round => {
+                    html += `<div class="round"><h4>${round}</h4>`;
+                    if (round === "Round of 64") {
+                        for (let i = 0; i < bracket[region][round].length; i += 2) {
+                            const team1 = bracket[region][round][i];
+                            const team2 = bracket[region][round][i + 1];
+                            const winner = bracket[region]["Round of 32"].includes(team1) ? team1 : team2;
+                            html += `<div class="matchup">
+                                        <div class="team">(${team1.Seed}) ${team1.Team}</div>
+                                        <div class="team">(${team2.Seed}) ${team2.Team}</div>
+                                        <div class="team">${winner === team1 ? "→" : ""} ${winner === team2 ? "→" : ""}</div>
+                                     </div>`;
+                        }
+                    } else {
+                        bracket[region][round].forEach(team => {
+                            html += `<div class="matchup"><div class="team">(${team.Seed}) ${team.Team}</div></div>`;
+                        });
+                    }
+                    html += `</div>`;
+                });
+                document.getElementById(region.toLowerCase()).innerHTML = html;
             }
 
-            html += "<h3>Final Four</h3>";
-            html += `<div class="matchup">${finalFour[0].Team} vs. ${finalFour[1].Team} → ${semi1[0].Team}</div>`;
-            html += `<div class="matchup">${finalFour[2].Team} vs. ${finalFour[3].Team} → ${semi2[0].Team}</div>`;
-            html += "<h3>National Championship</h3>";
-            html += `<div class="matchup">${semi1[0].Team} vs. ${semi2[0].Team} → <strong>${championship[0].Team}</strong></div>`;
-            html += `<p><strong>Predicted Champion: ${championship[0].Team}</strong></p>`;
+            // Final Four
+            let ffHtml = `<h3>Final Four</h3>`;
+            ffHtml += `<div class="matchup">
+                          <div class="team">${finalFourTeams[0].Team}</div>
+                          <div class="team">${finalFourTeams[1].Team}</div>
+                          <div class="team">→ ${semiFinals[0].Team}</div>
+                       </div>`;
+            ffHtml += `<div class="matchup">
+                          <div class="team">${finalFourTeams[2].Team}</div>
+                          <div class="team">${finalFourTeams[3].Team}</div>
+                          <div class="team">→ ${semiFinals[1].Team}</div>
+                       </div>`;
+            document.getElementById("final-four").innerHTML = ffHtml;
 
-            document.getElementById("result").innerHTML = html;
+            // Championship
+            let champHtml = `<h3>National Championship</h3>`;
+            champHtml += `<div class="matchup">
+                             <div class="team">${semiFinals[0].Team}</div>
+                             <div class="team">${semiFinals[1].Team}</div>
+                             <div class="team">→ ${championship[0].Team}</div>
+                          </div>`;
+            champHtml += `<div class="champion">Champion: ${championship[0].Team}</div>`;
+            document.getElementById("championship").innerHTML = champHtml;
         }
     </script>
 </body>
