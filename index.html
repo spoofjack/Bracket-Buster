@@ -53,7 +53,6 @@
 
     <script>
         const teamsData = [
-            // East Region
             { Seed: 1, Region: "East", Team: "Duke", AdjO: 128.0, AdjD: 89.8, AdjT: 65.7, Luck: -0.019, Momentum: 0.9 },
             { Seed: 8, Region: "East", Team: "Mississippi St.", AdjO: 118.7, AdjD: 98.6, AdjT: 68.1, Luck: 0.012, Momentum: 0.64 },
             { Seed: 9, Region: "East", Team: "Baylor", AdjO: 120.8, AdjD: 99.7, AdjT: 64.5, Luck: -0.054, Momentum: 0.58 },
@@ -72,8 +71,6 @@
             { Seed: 15, Region: "East", Team: "Robert Morris", AdjO: 107.0, AdjD: 104.9, AdjT: 67.8, Luck: 0.088, Momentum: 0.76 },
             { Seed: 16, Region: "East", Team: "American", AdjO: 102.1, AdjD: 108.0, AdjT: 63.5, Luck: 0.133, Momentum: 0.65 },
             { Seed: 16, Region: "East", Team: "Mount St. Mary's", AdjO: 100.1, AdjD: 106.8, AdjT: 67.4, Luck: 0.147, Momentum: 0.65 },
-
-            // Midwest Region
             { Seed: 1, Region: "Midwest", Team: "Houston", AdjO: 123.2, AdjD: 87.8, AdjT: 61.4, Luck: 0.015, Momentum: 0.88 },
             { Seed: 16, Region: "Midwest", Team: "SIUE", AdjO: 101.9, AdjD: 106.2, AdjT: 65.8, Luck: 0.052, Momentum: 0.67 },
             { Seed: 8, Region: "Midwest", Team: "Gonzaga", AdjO: 123.6, AdjD: 96.3, AdjT: 70.2, Luck: -0.074, Momentum: 0.76 },
@@ -91,8 +88,6 @@
             { Seed: 10, Region: "Midwest", Team: "Utah St.", AdjO: 120.7, AdjD: 105.5, AdjT: 67.5, Luck: 0.086, Momentum: 0.79 },
             { Seed: 2, Region: "Midwest", Team: "Tennessee", AdjO: 120.3, AdjD: 89.1, AdjT: 63.6, Luck: 0.016, Momentum: 0.79 },
             { Seed: 15, Region: "Midwest", Team: "Wofford", AdjO: 113.6, AdjD: 109.5, AdjT: 64.0, Luck: -0.032, Momentum: 0.56 },
-
-            // South Region
             { Seed: 1, Region: "South", Team: "Auburn", AdjO: 128.4, AdjD: 93.4, AdjT: 67.6, Luck: 0.030, Momentum: 0.85 },
             { Seed: 8, Region: "South", Team: "Louisville", AdjO: 118.1, AdjD: 95.5, AdjT: 68.7, Luck: 0.058, Momentum: 0.79 },
             { Seed: 9, Region: "South", Team: "Creighton", AdjO: 116.9, AdjD: 98.2, AdjT: 67.0, Luck: 0.049, Momentum: 0.73 },
@@ -109,8 +104,6 @@
             { Seed: 15, Region: "South", Team: "Bryant", AdjO: 106.7, AdjD: 105.5, AdjT: 72.5, Luck: -0.004, Momentum: 0.68 },
             { Seed: 16, Region: "South", Team: "Alabama St.", AdjO: 101.4, AdjD: 110.6, AdjT: 67.7, Luck: 0.049, Momentum: 0.56 },
             { Seed: 16, Region: "South", Team: "Saint Francis", AdjO: 99.7, AdjD: 112.4, AdjT: 66.9, Luck: 0.074, Momentum: 0.48 },
-
-            // West Region
             { Seed: 1, Region: "West", Team: "Florida", AdjO: 128.6, AdjD: 92.4, AdjT: 69.6, Luck: 0.007, Momentum: 0.88 },
             { Seed: 16, Region: "West", Team: "Norfolk St.", AdjO: 107.1, AdjD: 108.7, AdjT: 66.3, Luck: 0.056, Momentum: 0.71 },
             { Seed: 8, Region: "West", Team: "UConn", AdjO: 121.9, AdjD: 102.6, AdjT: 63.7, Luck: -0.019, Momentum: 0.70 },
@@ -178,7 +171,7 @@
         }
 
         function predictTournament() {
-            console.log("Predict button clicked"); // Debug: Confirm function is called
+            console.log("Predict button clicked");
 
             const weights = {
                 AdjO: parseFloat(document.getElementById("adjO").value) || 0,
@@ -187,16 +180,16 @@
                 Luck: parseFloat(document.getElementById("luck").value) || 0,
                 Upset: parseFloat(document.getElementById("upset").value) || 0
             };
-            console.log("Weights:", weights); // Debug: Check parsed values
+            console.log("Weights:", weights);
 
             const totalWeight = Number((weights.AdjO + weights.AdjD + weights.AdjT + weights.Luck + weights.Upset).toFixed(2));
-            console.log("Total Weight:", totalWeight); // Debug: Check sum
+            console.log("Total Weight:", totalWeight);
             if (totalWeight !== 1.0) {
                 alert("Weights must sum to 1.0 (current sum: " + totalWeight + ")");
                 return;
             }
 
-            console.log("Starting simulation"); // Debug: Confirm simulation start
+            console.log("Starting simulation");
             const regions = {
                 "East": teamsData.filter(t => t.Region === "East").sort((a, b) => a.Seed - b.Seed),
                 "West": teamsData.filter(t => t.Region === "West").sort((a, b) => a.Seed - b.Seed),
@@ -325,7 +318,7 @@
                      </div>`;
             html += `<div class="champion">Champion: ${championship[0].Team}</div></div>`;
 
-            console.log("Rendering bracket"); // Debug: Confirm HTML generation
+            console.log("Rendering bracket");
             document.getElementById("bracket-results").innerHTML = html;
         }
     </script>
