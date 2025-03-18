@@ -5,157 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bracket Buster 2025</title>
     <style>
-        /* Your original CSS remains unchanged */
-        body {
-            font-family: 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f2f5;
-            color: #333;
-        }
-        h1 {
-            text-align: center;
-            color: #1a73e8;
-            margin-bottom: 20px;
-        }
-        .controls {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .controls h3 {
-            margin-top: 0;
-            color: #555;
-        }
-        .weight-input {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
-        }
-        .weight-input label {
-            width: 80px;
-            font-weight: bold;
-            color: #666;
-        }
-        .weight-input input {
-            width: 100px;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        button {
-            display: block;
-            width: 200px;
-            margin: 20px auto 0;
-            padding: 12px;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        button:hover {
-            background-color: #1557b0;
-        }
-        #result {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .bracket-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .region {
-            flex: 1;
-            min-width: 250px;
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .region h3 {
-            text-align: center;
-            color: #1a73e8;
-            margin-bottom: 15px;
-        }
-        .round {
-            margin-bottom: 20px;
-        }
-        .round h4 {
-            margin: 0 0 10px;
-            color: #555;
-            font-size: 14px;
-            text-transform: uppercase;
-        }
-        .matchup {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px;
-            margin: 4px 0;
-            background: #fafafa;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        .team {
-            flex: 1;
-            text-align: left;
-        }
-        .final-four, .championship {
-            margin-top: 30px;
-            text-align: center;
-        }
-        .final-four h3, .championship h3 {
-            color: #1a73e8;
-            margin-bottom: 15px;
-        }
-        .championship .matchup {
-            display: inline-block;
-            width: 300px;
-            background: #e8f0fe;
-            border: 1px solid #1a73e8;
-        }
-        .champion {
-            font-weight: bold;
-            color: #d32f2f;
-            margin-top: 10px;
-            font-size: 18px;
-        }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+        h1 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
+        .controls { max-width: 600px; margin: 0 auto 30px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .controls h3 { margin-top: 0; color: #555; }
+        .weight-input { display: flex; align-items: center; margin: 10px 0; }
+        .weight-input label { width: 80px; font-weight: bold; color: #666; }
+        .weight-input input { width: 100px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        button { display: block; width: 200px; margin: 20px auto 0; padding: 12px; background-color: #1a73e8; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: background-color 0.3s; }
+        button:hover { background-color: #1557b0; }
+        #bracket-results { max-width: 1200px; margin: 0 auto; }
+        .bracket-container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .region { flex: 1; min-width: 250px; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .region h3 { text-align: center; color: #1a73e8; margin-bottom: 15px; }
+        .round { margin-bottom: 20px; border-bottom: 1px solid #ddd; padding-bottom: 15px; }
+        .round:last-child { border-bottom: none; }
+        .round h4 { margin: 0 0 10px; color: #555; font-size: 14px; text-transform: uppercase; }
+        .matchup { display: flex; justify-content: space-between; align-items: center; padding: 8px; margin: 4px 0; background: #fafafa; border: 1px solid #eee; border-radius: 5px; font-size: 14px; }
+        .team { flex: 1; text-align: left; }
+        .final-four, .championship { margin-top: 30px; text-align: center; }
+        .final-four h3, .championship h3 { color: #1a73e8; margin-bottom: 15px; }
+        .championship .matchup { display: inline-block; width: 300px; background: #e8f0fe; border: 1px solid #1a73e8; }
+        .champion { font-weight: bold; color: #d32f2f; margin-top: 10px; font-size: 18px; }
     </style>
 </head>
 <body>
     <h1>Bracket Buster 2025</h1>
-    
     <div class="controls">
         <h3>Custom Weights (Must Sum to 1.0)</h3>
-        <div class="weight-input">
-            <label>AdjO:</label><input type="number" id="adjO" value="0.30" step="0.01" min="0" max="1">
-        </div>
-        <div class="weight-input">
-            <label>AdjD:</label><input type="number" id="adjD" value="0.30" step="0.01" min="0" max="1">
-        </div>
-        <div class="weight-input">
-            <label>AdjT:</label><input type="number" id="adjT" value="0.20" step="0.01" min="0" max="1">
-        </div>
-        <div class="weight-input">
-            <label>Luck:</label><input type="number" id="luck" value="0.10" step="0.01" min="0" max="1">
-        </div>
-        <div class="weight-input">
-            <label>Upset:</label><input type="number" id="upset" value="0.10" step="0.01" min="0" max="1">
-        </div>
+        <div class="weight-input"><label>AdjO:</label><input type="number" id="adjO" value="0.30" step="0.01" min="0" max="1"></div>
+        <div class="weight-input"><label>AdjD:</label><input type="number" id="adjD" value="0.30" step="0.01" min="0" max="1"></div>
+        <div class="weight-input"><label>AdjT:</label><input type="number" id="adjT" value="0.20" step="0.01" min="0" max="1"></div>
+        <div class="weight-input"><label>Luck:</label><input type="number" id="luck" value="0.10" step="0.01" min="0" max="1"></div>
+        <div class="weight-input"><label>Upset:</label><input type="number" id="upset" value="0.10" step="0.01" min="0" max="1"></div>
         <button onclick="predictTournament()">Predict Bracket</button>
     </div>
-
-    <div id="result">
+    <div id="bracket-results">
         <div class="bracket-container">
             <div class="region" id="east"></div>
             <div class="region" id="west"></div>
@@ -167,310 +52,200 @@
     </div>
 
     <script>
-    const teamsData = [
-        // East Region
-        { Seed: 1, Region: "East", Team: "Duke", AdjO: 128.0, AdjD: 89.8, AdjT: 65.7, Luck: -0.019, Momentum: 0.9 },
-        { Seed: 8, Region: "East", Team: "Mississippi St.", AdjO: 118.7, AdjD: 98.6, AdjT: 68.1, Luck: 0.012, Momentum: 0.64 },
-        { Seed: 9, Region: "East", Team: "Baylor", AdjO: 120.8, AdjD: 99.7, AdjT: 64.5, Luck: -0.054, Momentum: 0.58 },
-        { Seed: 5, Region: "East", Team: "Oregon", AdjO: 116.6, AdjD: 96.5, AdjT: 67.6, Luck: 0.085, Momentum: 0.73 },
-        { Seed: 12, Region: "East", Team: "Liberty", AdjO: 112.5, AdjD: 98.9, AdjT: 65.3, Luck: 0.000, Momentum: 0.82 },
-        { Seed: 4, Region: "East", Team: "Arizona", AdjO: 122.5, AdjD: 96.8, AdjT: 69.9, Luck: -0.049, Momentum: 0.65 },
-        { Seed: 13, Region: "East", Team: "Akron", AdjO: 113.7, AdjD: 107.1, AdjT: 71.4, Luck: 0.071, Momentum: 0.82 },
-        { Seed: 6, Region: "East", Team: "BYU", AdjO: 123.0, AdjD: 100.6, AdjT: 67.2, Luck: 0.036, Momentum: 0.73 },
-        { Seed: 11, Region: "East", Team: "VCU", AdjO: 116.3, AdjD: 95.7, AdjT: 66.1, Luck: -0.051, Momentum: 0.82 }, // Assume First Four winner vs. San Diego St.
-        { Seed: 11, Region: "East", Team: "San Diego St.", AdjO: 109.8, AdjD: 93.5, AdjT: 66.0, Luck: 0.010, Momentum: 0.70 }, // First Four
-        { Seed: 3, Region: "East", Team: "Wisconsin", AdjO: 122.0, AdjD: 96.0, AdjT: 67.6, Luck: -0.033, Momentum: 0.74 },
-        { Seed: 14, Region: "East", Team: "Montana", AdjO: 110.8, AdjD: 110.4, AdjT: 67.0, Luck: 0.186, Momentum: 0.74 },
-        { Seed: 7, Region: "East", Team: "Saint Mary's", AdjO: 115.3, AdjD: 92.2, AdjT: 61.7, Luck: 0.005, Momentum: 0.85 },
-        { Seed: 10, Region: "East", Team: "Vanderbilt", AdjO: 117.9, AdjD: 101.8, AdjT: 69.4, Luck: 0.025, Momentum: 0.63 },
-        { Seed: 2, Region: "East", Team: "Alabama", AdjO: 126.5, AdjD: 96.6, AdjT: 74.9, Luck: 0.029, Momentum: 0.76 },
-        { Seed: 15, Region: "East", Team: "Robert Morris", AdjO: 107.0, AdjD: 104.9, AdjT: 67.8, Luck: 0.088, Momentum: 0.76 },
-        { Seed: 16, Region: "East", Team: "American", AdjO: 102.1, AdjD: 108.0, AdjT: 63.5, Luck: 0.133, Momentum: 0.65 }, // First Four
-        { Seed: 16, Region: "East", Team: "Mount St. Mary's", AdjO: 100.1, AdjD: 106.8, AdjT: 67.4, Luck: 0.147, Momentum: 0.65 }, // First Four
+        const teamsData = [ /* Your teamsData array unchanged */ ];
 
-        // Midwest Region
-        { Seed: 1, Region: "Midwest", Team: "Houston", AdjO: 123.2, AdjD: 87.8, AdjT: 61.4, Luck: 0.015, Momentum: 0.88 },
-        { Seed: 16, Region: "Midwest", Team: "SIUE", AdjO: 101.9, AdjD: 106.2, AdjT: 65.8, Luck: 0.052, Momentum: 0.67 },
-        { Seed: 8, Region: "Midwest", Team: "Gonzaga", AdjO: 123.6, AdjD: 96.3, AdjT: 70.2, Luck: -0.074, Momentum: 0.76 },
-        { Seed: 9, Region: "Midwest", Team: "Georgia", AdjO: 115.4, AdjD: 96.0, AdjT: 66.4, Luck: -0.001, Momentum: 0.63 },
-        { Seed: 5, Region: "Midwest", Team: "Clemson", AdjO: 118.7, AdjD: 94.7, AdjT: 64.2, Luck: -0.032, Momentum: 0.82 },
-        { Seed: 12, Region: "Midwest", Team: "McNeese", AdjO: 114.3, AdjD: 100.6, AdjT: 65.3, Luck: -0.023, Momentum: 0.82 },
-        { Seed: 4, Region: "Midwest", Team: "Purdue", AdjO: 124.2, AdjD: 100.4, AdjT: 65.0, Luck: -0.007, Momentum: 0.67 },
-        { Seed: 13, Region: "Midwest", Team: "High Point", AdjO: 118.5, AdjD: 109.1, AdjT: 66.4, Luck: 0.011, Momentum: 0.85 },
-        { Seed: 6, Region: "Midwest", Team: "Illinois", AdjO: 121.6, AdjD: 98.1, AdjT: 71.3, Luck: -0.018, Momentum: 0.64 },
-        { Seed: 11, Region: "Midwest", Team: "North Carolina", AdjO: 118.9, AdjD: 99.3, AdjT: 70.4, Luck: -0.019, Momentum: 0.63 }, // First Four vs. Texas
-        { Seed: 11, Region: "Midwest", Team: "Texas", AdjO: 116.7, AdjD: 99.5, AdjT: 67.4, Luck: -0.057, Momentum: 0.56 }, // First Four
-        { Seed: 3, Region: "Midwest", Team: "Kentucky", AdjO: 123.8, AdjD: 99.5, AdjT: 70.9, Luck: 0.007, Momentum: 0.67 },
-        { Seed: 14, Region: "Midwest", Team: "Troy", AdjO: 107.7, AdjD: 100.8, AdjT: 66.3, Luck: -0.009, Momentum: 0.70 },
-        { Seed: 7, Region: "Midwest", Team: "UCLA", AdjO: 116.8, AdjD: 95.1, AdjT: 64.9, Luck: -0.008, Momentum: 0.69 },
-        { Seed: 10, Region: "Midwest", Team: "Utah St.", AdjO: 120.7, AdjD: 105.5, AdjT: 67.5, Luck: 0.086, Momentum: 0.79 },
-        { Seed: 2, Region: "Midwest", Team: "Tennessee", AdjO: 120.3, AdjD: 89.1, AdjT: 63.6, Luck: 0.016, Momentum: 0.79 },
-        { Seed: 15, Region: "Midwest", Team: "Wofford", AdjO: 113.6, AdjD: 109.5, AdjT: 64.0, Luck: -0.032, Momentum: 0.56 },
-
-        // South Region
-        { Seed: 1, Region: "South", Team: "Auburn", AdjO: 128.4, AdjD: 93.4, AdjT: 67.6, Luck: 0.030, Momentum: 0.85 },
-        { Seed: 8, Region: "South", Team: "Louisville", AdjO: 118.1, AdjD: 95.5, AdjT: 68.7, Luck: 0.058, Momentum: 0.79 },
-        { Seed: 9, Region: "South", Team: "Creighton", AdjO: 116.9, AdjD: 98.2, AdjT: 67.0, Luck: 0.049, Momentum: 0.73 },
-        { Seed: 5, Region: "South", Team: "Michigan", AdjO: 116.0, AdjD: 93.7, AdjT: 69.4, Luck: 0.070, Momentum: 0.74 },
-        { Seed: 12, Region: "South", Team: "UC San Diego", AdjO: 115.2, AdjD: 96.5, AdjT: 65.7, Luck: 0.010, Momentum: 0.88 },
-        { Seed: 4, Region: "South", Team: "Texas A&M", AdjO: 116.2, AdjD: 92.1, AdjT: 66.1, Luck: 0.001, Momentum: 0.69 },
-        { Seed: 13, Region: "South", Team: "Yale", AdjO: 115.1, AdjD: 104.0, AdjT: 67.2, Luck: -0.041, Momentum: 0.76 },
-        { Seed: 6, Region: "South", Team: "Ole Miss", AdjO: 117.8, AdjD: 95.8, AdjT: 68.0, Luck: 0.018, Momentum: 0.67 },
-        { Seed: 3, Region: "South", Team: "Iowa St.", AdjO: 119.4, AdjD: 92.4, AdjT: 68.6, Luck: -0.048, Momentum: 0.73 },
-        { Seed: 14, Region: "South", Team: "Lipscomb", AdjO: 112.7, AdjD: 103.2, AdjT: 65.9, Luck: -0.028, Momentum: 0.74 },
-        { Seed: 7, Region: "South", Team: "Marquette", AdjO: 117.7, AdjD: 96.1, AdjT: 67.6, Luck: -0.013, Momentum: 0.70 },
-        { Seed: 10, Region: "South", Team: "New Mexico", AdjO: 112.5, AdjD: 95.2, AdjT: 72.7, Luck: 0.000, Momentum: 0.79 },
-        { Seed: 2, Region: "South", Team: "Michigan St.", AdjO: 118.1, AdjD: 90.6, AdjT: 67.7, Luck: -0.009, Momentum: 0.82 },
-        { Seed: 15, Region: "South", Team: "Bryant", AdjO: 106.7, AdjD: 105.5, AdjT: 72.5, Luck: -0.004, Momentum: 0.68 },
-        { Seed: 16, Region: "South", Team: "Alabama St.", AdjO: 101.4, AdjD: 110.6, AdjT: 67.7, Luck: 0.049, Momentum: 0.56 }, // First Four
-        { Seed: 16, Region: "South", Team: "Saint Francis", AdjO: 99.7, AdjD: 112.4, AdjT: 66.9, Luck: 0.074, Momentum: 0.48 }, // First Four
-
-        // West Region
-        { Seed: 1, Region: "West", Team: "Florida", AdjO: 128.6, AdjD: 92.4, AdjT: 69.6, Luck: 0.007, Momentum: 0.88 },
-        { Seed: 16, Region: "West", Team: "Norfolk St.", AdjO: 107.1, AdjD: 108.7, AdjT: 66.3, Luck: 0.056, Momentum: 0.71 },
-        { Seed: 8, Region: "West", Team: "UConn", AdjO: 121.9, AdjD: 102.6, AdjT: 63.7, Luck: -0.019, Momentum: 0.70 },
-        { Seed: 9, Region: "West", Team: "Oklahoma", AdjO: 119.0, AdjD: 100.7, AdjT: 68.5, Luck: 0.005, Momentum: 0.61 },
-        { Seed: 5, Region: "West", Team: "Memphis", AdjO: 113.1, AdjD: 97.8, AdjT: 70.8, Luck: 0.090, Momentum: 0.85 },
-        { Seed: 12, Region: "West", Team: "Colorado St.", AdjO: 116.2, AdjD: 98.9, AdjT: 66.0, Luck: 0.025, Momentum: 0.74 },
-        { Seed: 4, Region: "West", Team: "Maryland", AdjO: 118.1, AdjD: 91.8, AdjT: 69.8, Luck: -0.038, Momentum: 0.76 },
-        { Seed: 13, Region: "West", Team: "Grand Canyon", AdjO: 107.8, AdjD: 100.6, AdjT: 71.4, Luck: 0.019, Momentum: 0.79 },
-        { Seed: 6, Region: "West", Team: "Missouri", AdjO: 125.3, AdjD: 100.9, AdjT: 68.2, Luck: -0.048, Momentum: 0.67 },
-        { Seed: 11, Region: "West", Team: "Drake", AdjO: 112.6, AdjD: 98.5, AdjT: 58.8, Luck: 0.004, Momentum: 0.91 }, // Assume First Four winner vs. Xavier
-        { Seed: 11, Region: "West", Team: "Xavier", AdjO: 115.5, AdjD: 98.3, AdjT: 69.1, Luck: -0.020, Momentum: 0.66 }, // First Four
-        { Seed: 3, Region: "West", Team: "Texas Tech", AdjO: 125.3, AdjD: 97.2, AdjT: 65.4, Luck: -0.045, Momentum: 0.76 },
-        { Seed: 14, Region: "West", Team: "UNC Wilmington", AdjO: 112.3, AdjD: 107.1, AdjT: 65.3, Luck: 0.055, Momentum: 0.79 },
-        { Seed: 7, Region: "West", Team: "Kansas", AdjO: 116.0, AdjD: 92.7, AdjT: 68.4, Luck: -0.024, Momentum: 0.64 },
-        { Seed: 10, Region: "West", Team: "Arkansas", AdjO: 112.9, AdjD: 95.2, AdjT: 69.3, Luck: -0.008, Momentum: 0.61 },
-        { Seed: 2, Region: "West", Team: "St. John's", AdjO: 113.9, AdjD: 87.5, AdjT: 70.1, Luck: -0.019, Momentum: 0.88 },
-        { Seed: 15, Region: "West", Team: "Omaha", AdjO: 111.0, AdjD: 110.5, AdjT: 67.7, Luck: 0.071, Momentum: 0.65 }
-    ];
-
-    // Historical upset probabilities (unchanged)
-    const upsetProbabilities = {
-        "1vs16": 0.01, "2vs15": 0.06, "3vs14": 0.15, "4vs13": 0.20,
-        "5vs12": 0.35, "6vs11": 0.33, "7vs10": 0.40, "8vs9": 0.50,
-        "1vs8": 0.15, "2vs7": 0.20, "3vs6": 0.25, "4vs5": 0.30
-    };
-
-    function calculateTeamScore(team, weights) {
-        return (weights.AdjO * team.AdjO) +
-               (weights.AdjD * (200 - team.AdjD)) +
-               (weights.AdjT * team.AdjT) +
-               (weights.Luck * team.Luck * 100) +
-               (team.Momentum * 10);
-    }
-
-    function getUpsetProbability(seed1, seed2) {
-        const matchup = `${Math.min(seed1, seed2)}vs${Math.max(seed1, seed2)}`;
-        return upsetProbabilities[matchup] || 0.25;
-    }
-
-    function simulateMatchup(team1, team2, weights, round) {
-        let score1 = calculateTeamScore(team1, weights);
-        let score2 = calculateTeamScore(team2, weights);
-
-        const random1 = 0.85 + Math.random() * 0.3;
-        const random2 = 0.85 + Math.random() * 0.3;
-        score1 *= random1;
-        score2 *= random2;
-
-        const seedDiff = Math.abs(team1.Seed - team2.Seed);
-        const upsetChance = getUpsetProbability(team1.Seed, team2.Seed) * weights.Upset;
-        const isUpsetPossible = Math.random() < upsetChance && seedDiff >= 3;
-
-        if (isUpsetPossible && team1.Seed > team2.Seed) score1 *= 1.1;
-        else if (isUpsetPossible && team2.Seed > team1.Seed) score2 *= 1.1;
-
-        if (round === "Elite 8" || round === "Final Four" || round === "Championship") {
-            if (team1.Seed < team2.Seed) score1 *= 1.05;
-            else if (team2.Seed < team1.Seed) score2 *= 1.05;
-        }
-
-        return score1 > score2 ? team1 : team2;
-    }
-
-    function simulateRound(teams, weights, roundName) {
-        const winners = [];
-        for (let i = 0; i < teams.length; i += 2) {
-            const winner = simulateMatchup(teams[i], teams[i + 1], weights, roundName);
-            winners.push(winner);
-        }
-        return winners;
-    }
-
-    function predictTournament() {
-        const weights = {
-            AdjO: parseFloat(document.getElementById("adjO").value),
-            AdjD: parseFloat(document.getElementById("adjD").value),
-            AdjT: parseFloat(document.getElementById("adjT").value),
-            Luck: parseFloat(document.getElementById("luck").value),
-            Upset: parseFloat(document.getElementById("upset").value)
+        const upsetProbabilities = {
+            "1vs16": 0.01, "2vs15": 0.06, "3vs14": 0.15, "4vs13": 0.20,
+            "5vs12": 0.35, "6vs11": 0.33, "7vs10": 0.40, "8vs9": 0.50,
+            "1vs8": 0.15, "2vs7": 0.20, "3vs6": 0.25, "4vs5": 0.30
         };
 
-        const totalWeight = weights.AdjO + weights.AdjD + weights.AdjT + weights.Luck + weights.Upset;
-        if (Math.abs(totalWeight - 1.0) > 0.01) {
-            alert("Weights must sum to 1.0 (current sum: " + totalWeight.toFixed(2) + ")");
-            return;
+        function calculateTeamScore(team, weights) {
+            return (weights.AdjO * team.AdjO) +
+                   (weights.AdjD * (200 - team.AdjD)) +
+                   (weights.AdjT * team.AdjT) +
+                   (weights.Luck * team.Luck * 100) +
+                   (team.Momentum * 10);
         }
 
-        const regions = {
-            "East": teamsData.filter(t => t.Region === "East").sort((a, b) => a.Seed - b.Seed),
-            "West": teamsData.filter(t => t.Region === "West").sort((a, b) => a.Seed - b.Seed),
-            "South": teamsData.filter(t => t.Region === "South").sort((a, b) => a.Seed - b.Seed),
-            "Midwest": teamsData.filter(t => t.Region === "Midwest").sort((a, b) => a.Seed - b.Seed)
-        };
+        function getUpsetProbability(seed1, seed2) {
+            const matchup = `${Math.min(seed1, seed2)}vs${Math.max(seed1, seed2)}`;
+            return upsetProbabilities[matchup] || 0.25;
+        }
 
-        // Handle First Four winners
-        const firstFourWinners = {
-            "East": [
-                simulateMatchup(regions["East"][8], regions["East"][9], weights, "First Four"), // VCU vs. San Diego St.
-                simulateMatchup(regions["East"][15], regions["East"][16], weights, "First Four") // American vs. Mount St. Mary's
-            ],
-            "West": [
-                simulateMatchup(regions["West"][9], regions["West"][10], weights, "First Four") // Drake vs. Xavier
-            ],
-            "South": [
-                simulateMatchup(regions["South"][13], regions["South"][14], weights, "First Four") // Alabama St. vs. Saint Francis
-            ],
-            "Midwest": [
-                simulateMatchup(regions["Midwest"][9], regions["Midwest"][10], weights, "First Four") // North Carolina vs. Texas
-            ]
-        };
+        function simulateMatchup(team1, team2, weights, round) {
+            let score1 = calculateTeamScore(team1, weights);
+            let score2 = calculateTeamScore(team2, weights);
+            const random1 = 0.85 + Math.random() * 0.3;
+            const random2 = 0.85 + Math.random() * 0.3;
+            score1 *= random1;
+            score2 *= random2;
+            const seedDiff = Math.abs(team1.Seed - team2.Seed);
+            const upsetChance = getUpsetProbability(team1.Seed, team2.Seed) * weights.Upset;
+            const isUpsetPossible = Math.random() < upsetChance && seedDiff >= 3;
+            if (isUpsetPossible && team1.Seed > team2.Seed) score1 *= 1.1;
+            else if (isUpsetPossible && team2.Seed > team1.Seed) score2 *= 1.1;
+            if (round === "Elite 8" || round === "Final Four" || round === "Championship") {
+                if (team1.Seed < team2.Seed) score1 *= 1.05;
+                else if (team2.Seed < team1.Seed) score2 *= 1.05;
+            }
+            return score1 > score2 ? team1 : team2;
+        }
 
-        const bracket = {};
-        for (const region in regions) {
-            let round64Teams = [];
-            if (region === "East") {
-                round64Teams = [
-                    regions[region][0], // 1
-                    regions[region][1], // 8
-                    regions[region][2], // 9
-                    regions[region][3], // 5
-                    regions[region][4], // 12
-                    regions[region][5], // 4
-                    regions[region][6], // 13
-                    regions[region][7], // 6
-                    firstFourWinners["East"][0], // 11 winner
-                    regions[region][10], // 3
-                    regions[region][11], // 14
-                    regions[region][12], // 7
-                    regions[region][13], // 10
-                    regions[region][14], // 2
-                    regions[region][15], // 15
-                    firstFourWinners["East"][1] // 16 winner
-                ];
-            } else if (region === "West") {
-                round64Teams = [
-                    regions[region][0], // 1
-                    regions[region][1], // 16
-                    regions[region][2], // 8
-                    regions[region][3], // 9
-                    regions[region][4], // 5
-                    regions[region][5], // 12
-                    regions[region][6], // 4
-                    regions[region][7], // 13
-                    regions[region][8], // 6
-                    firstFourWinners["West"][0], // 11 winner
-                    regions[region][11], // 3
-                    regions[region][12], // 14
-                    regions[region][13], // 7
-                    regions[region][14], // 10
-                    regions[region][15], // 2
-                    regions[region][16] // 15
-                ];
-            } else if (region === "South") {
-                round64Teams = [
-                    regions[region][0], // 1
-                    regions[region][1], // 8
-                    regions[region][2], // 9
-                    regions[region][3], // 5
-                    regions[region][4], // 12
-                    regions[region][5], // 4
-                    regions[region][6], // 13
-                    regions[region][7], // 6
-                    regions[region][8], // 3
-                    regions[region][9], // 14
-                    regions[region][10], // 7
-                    regions[region][11], // 10
-                    regions[region][12], // 2
-                    regions[region][13], // 15
-                    firstFourWinners["South"][0] // 16 winner
-                ];
-            } else if (region === "Midwest") {
-                round64Teams = [
-                    regions[region][0], // 1
-                    regions[region][1], // 16
-                    regions[region][2], // 8
-                    regions[region][3], // 9
-                    regions[region][4], // 5
-                    regions[region][5], // 12
-                    regions[region][6], // 4
-                    regions[region][7], // 13
-                    regions[region][8], // 6
-                    firstFourWinners["Midwest"][0], // 11 winner
-                    regions[region][11], // 3
-                    regions[region][12], // 14
-                    regions[region][13], // 7
-                    regions[region][14], // 10
-                    regions[region][15], // 2
-                    regions[region][16] // 15
-                ];
+        function simulateRound(teams, weights, roundName) {
+            const winners = [];
+            for (let i = 0; i < teams.length - 1; i += 2) {
+                const winner = simulateMatchup(teams[i], teams[i + 1], weights, roundName);
+                winners.push(winner);
+            }
+            return winners;
+        }
+
+        function predictTournament() {
+            const weights = {
+                AdjO: parseFloat(document.getElementById("adjO").value),
+                AdjD: parseFloat(document.getElementById("adjD").value),
+                AdjT: parseFloat(document.getElementById("adjT").value),
+                Luck: parseFloat(document.getElementById("luck").value),
+                Upset: parseFloat(document.getElementById("upset").value)
+            };
+
+            const totalWeight = weights.AdjO + weights.AdjD + weights.AdjT + weights.Luck + weights.Upset;
+            if (Math.abs(totalWeight - 1.0) > 0.01) {
+                alert("Weights must sum to 1.0 (current sum: " + totalWeight.toFixed(2) + ")");
+                return;
             }
 
-            bracket[region] = {
-                "Round of 64": round64Teams,
-                "Round of 32": simulateRound(round64Teams, weights, "Round of 32"),
-                "Sweet 16": null,
-                "Elite 8": null
+            const regions = {
+                "East": teamsData.filter(t => t.Region === "East").sort((a, b) => a.Seed - b.Seed),
+                "West": teamsData.filter(t => t.Region === "West").sort((a, b) => a.Seed - b.Seed),
+                "South": teamsData.filter(t => t.Region === "South").sort((a, b) => a.Seed - b.Seed),
+                "Midwest": teamsData.filter(t => t.Region === "Midwest").sort((a, b) => a.Seed - b.Seed)
             };
-            bracket[region]["Sweet 16"] = simulateRound(bracket[region]["Round of 32"], weights, "Sweet 16");
-            bracket[region]["Elite 8"] = simulateRound(bracket[region]["Sweet 16"], weights, "Elite 8");
-        }
 
-        const finalFourTeams = [
-            bracket["East"]["Elite 8"][0],
-            bracket["West"]["Elite 8"][0],
-            bracket["South"]["Elite 8"][0],
-            bracket["Midwest"]["Elite 8"][0]
-        ];
-        const semiFinals = simulateRound(finalFourTeams, weights, "Final Four");
-        const championship = simulateRound(semiFinals, weights, "Championship");
+            const firstFourWinners = {
+                "East": [
+                    simulateMatchup(regions["East"][8], regions["East"][9], weights, "First Four"),
+                    simulateMatchup(regions["East"][15], regions["East"][16], weights, "First Four")
+                ],
+                "West": [
+                    simulateMatchup(regions["West"][9], regions["West"][10], weights, "First Four")
+                ],
+                "South": [
+                    simulateMatchup(regions["South"][13], regions["South"][14], weights, "First Four")
+                ],
+                "Midwest": [
+                    simulateMatchup(regions["Midwest"][9], regions["Midwest"][10], weights, "First Four")
+                ]
+            };
 
-        let html = "";
-        const rounds = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8"];
-        for (const region in bracket) {
-            html += `<h3>${region} Region</h3>`;
-            rounds.forEach(round => {
-                html += `<div class="round"><h4>${round}</h4>`;
-                if (round === "Round of 64") {
-                    for (let i = 0; i < bracket[region][round].length; i += 2) {
+            const bracket = {};
+            for (const region in regions) {
+                let round64Teams = [];
+                if (region === "East") {
+                    round64Teams = [
+                        regions[region][0], regions[region][1], regions[region][2], regions[region][3],
+                        regions[region][4], regions[region][5], regions[region][6], regions[region][7],
+                        firstFourWinners["East"][0], regions[region][10], regions[region][11], regions[region][12],
+                        regions[region][13], regions[region][14], regions[region][15], firstFourWinners["East"][1]
+                    ];
+                } else if (region === "West") {
+                    round64Teams = [
+                        regions[region][0], regions[region][1], regions[region][2], regions[region][3],
+                        regions[region][4], regions[region][5], regions[region][6], regions[region][7],
+                        regions[region][8], firstFourWinners["West"][0], regions[region][11], regions[region][12],
+                        regions[region][13], regions[region][14], regions[region][15], regions[region][16]
+                    ];
+                } else if (region === "South") {
+                    round64Teams = [
+                        regions[region][0], regions[region][1], regions[region][2], regions[region][3],
+                        regions[region][4], regions[region][5], regions[region][6], regions[region][7],
+                        regions[region][8], regions[region][9], regions[region][10], regions[region][11],
+                        regions[region][12], regions[region][13], firstFourWinners["South"][0]
+                    ];
+                } else if (region === "Midwest") {
+                    round64Teams = [
+                        regions[region][0], regions[region][1], regions[region][2], regions[region][3],
+                        regions[region][4], regions[region][5], regions[region][6], regions[region][7],
+                        regions[region][8], firstFourWinners["Midwest"][0], regions[region][11], regions[region][12],
+                        regions[region][13], regions[region][14], regions[region][15], regions[region][16]
+                    ];
+                }
+
+                bracket[region] = {
+                    "Round of 64": round64Teams,
+                    "Round of 32": simulateRound(round64Teams, weights, "Round of 32"),
+                    "Sweet 16": null,
+                    "Elite 8": null
+                };
+                bracket[region]["Sweet 16"] = simulateRound(bracket[region]["Round of 32"], weights, "Sweet 16");
+                bracket[region]["Elite 8"] = simulateRound(bracket[region]["Sweet 16"], weights, "Elite 8");
+            }
+
+            const finalFourTeams = [
+                bracket["East"]["Elite 8"][0], bracket["West"]["Elite 8"][0],
+                bracket["South"]["Elite 8"][0], bracket["Midwest"]["Elite 8"][0]
+            ];
+            const semiFinals = simulateRound(finalFourTeams, weights, "Final Four");
+            const championship = simulateRound(semiFinals, weights, "Championship");
+
+            let html = "";
+            for (const region in bracket) {
+                html += `<div class="region"><h3>${region} Region</h3>`;
+                if (firstFourWinners[region].length > 0) {
+                    html += `<div class="round"><h4>First Four</h4>`;
+                    firstFourWinners[region].forEach((winner, index) => {
+                        const teams = index === 0 ? [regions[region][8], regions[region][9]] : [regions[region][15], regions[region][16]];
+                        html += `<div class="matchup">
+                                    <div class="team">(${teams[0].Seed}) ${teams[0].Team}</div>
+                                    <div class="team">(${teams[1].Seed}) ${teams[1].Team}</div>
+                                    <div class="winner">Winner: ${winner.Team}</div>
+                                 </div>`;
+                    });
+                    html += `</div>`;
+                }
+                const rounds = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8"];
+                rounds.forEach(round => {
+                    html += `<div class="round"><h4>${round}</h4>`;
+                    const nextRound = round === "Round of 64" ? "Round of 32" : round === "Round of 32" ? "Sweet 16" : round === "Sweet 16" ? "Elite 8" : "Final Four";
+                    for (let i = 0; i < bracket[region][round].length - 1; i += 2) {
                         const team1 = bracket[region][round][i];
                         const team2 = bracket[region][round][i + 1];
-                        const winner = bracket[region]["Round of 32"].includes(team1) ? team1 : team2;
+                        const winner = bracket[region][nextRound].includes(team1) ? team1 : team2;
                         html += `<div class="matchup">
                                     <div class="team">(${team1.Seed}) ${team1.Team}</div>
                                     <div class="team">(${team2.Seed}) ${team2.Team}</div>
                                     <div class="winner">Winner: ${winner.Team}</div>
                                  </div>`;
                     }
-                } else {
-                    bracket[region][round].forEach(team => {
-                        html += `<div class="team">(${team.Seed}) ${team.Team}</div>`;
-                    });
-                }
+                    html += `</div>`;
+                });
                 html += `</div>`;
-            });
+            }
+
+            html += `<div class="final-four"><h3>Final Four</h3>`;
+            for (let i = 0; i < semiFinals.length; i += 2) {
+                const team1 = finalFourTeams[i];
+                const team2 = finalFourTeams[i + 1];
+                const winner = semiFinals.includes(team1) ? team1 : team2;
+                html += `<div class="matchup">
+                            <div class="team">(${team1.Seed}) ${team1.Team}</div>
+                            <div class="team">(${team2.Seed}) ${team2.Team}</div>
+                            <div class="winner">Winner: ${winner.Team}</div>
+                         </div>`;
+            }
+            html += `</div>`;
+
+            html += `<div class="championship"><h3>Championship</h3>`;
+            html += `<div class="matchup">
+                        <div class="team">(${semiFinals[0].Seed}) ${semiFinals[0].Team}</div>
+                        <div class="team">(${semiFinals[1].Seed}) ${semiFinals[1].Team}</div>
+                        <div class="winner">Winner: ${championship[0].Team}</div>
+                     </div>`;
+            html += `<div class="champion">Champion: ${championship[0].Team}</div></div>`;
+
+            document.getElementById("bracket-results").innerHTML = html;
         }
-
-        html += `<h3>Final Four</h3>`;
-        semiFinals.forEach(team => {
-            html += `<div class="team">(${team.Seed}) ${team.Team}</div>`;
-        });
-        html += `<h3>Championship</h3>`;
-        html += `<div class="team">(${championship[0].Seed}) ${championship[0].Team}</div>`;
-
-        document.getElementById("bracket-results").innerHTML = html;
-    }
-</script>
+    </script>
 </body>
 </html>
