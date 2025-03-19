@@ -445,14 +445,15 @@
                 };
                 bracket[region]["Sweet 16"] = simulateRound(bracket[region]["Round of 32"], weights, "Sweet 16");
                 bracket[region]["Elite 8"] = simulateRound(bracket[region]["Sweet 16"], weights, "Elite 8");
-                bracket[region]["Regional Champion"] = bracket[region]["Elite 8"][0]; // Single winner per region
+                bracket[region]["Regional Champion"] = bracket[region]["Elite 8"][0];
             }
 
+            // Adjusted Final Four pairings: South vs. West, Midwest vs. East
             const finalFourTeams = [
-                bracket["East"]["Regional Champion"],
-                bracket["West"]["Regional Champion"],
-                bracket["South"]["Regional Champion"],
-                bracket["Midwest"]["Regional Champion"]
+                bracket["South"]["Regional Champion"],  // Index 0
+                bracket["West"]["Regional Champion"],   // Index 1
+                bracket["Midwest"]["Regional Champion"],// Index 2
+                bracket["East"]["Regional Champion"]    // Index 3
             ];
             const finalFour = simulateRound(finalFourTeams, weights, "Final Four");
             const championship = simulateRound(finalFour, weights, "Championship");
@@ -517,15 +518,16 @@
                 html += '</div>';
             }
 
+            // Adjusted Final Four display: South vs. West, Midwest vs. East
             html += '<div class="final-four"><h3>Final Four</h3>';
             html += '<div class="matchup">' +
-                        '<div class="team">(' + finalFourTeams[0].Seed + ') ' + finalFourTeams[0].Team + '</div>' +
-                        '<div class="team">(' + finalFourTeams[1].Seed + ') ' + finalFourTeams[1].Team + '</div>' +
+                        '<div class="team">(' + finalFourTeams[0].Seed + ') ' + finalFourTeams[0].Team + '</div>' + // South
+                        '<div class="team">(' + finalFourTeams[1].Seed + ') ' + finalFourTeams[1].Team + '</div>' + // West
                         '<div class="winner">Winner: ' + finalFour[0].Team + '</div>' +
                     '</div>';
             html += '<div class="matchup">' +
-                        '<div class="team">(' + finalFourTeams[2].Seed + ') ' + finalFourTeams[2].Team + '</div>' +
-                        '<div class="team">(' + finalFourTeams[3].Seed + ') ' + finalFourTeams[3].Team + '</div>' +
+                        '<div class="team">(' + finalFourTeams[2].Seed + ') ' + finalFourTeams[2].Team + '</div>' + // Midwest
+                        '<div class="team">(' + finalFourTeams[3].Seed + ') ' + finalFourTeams[3].Team + '</div>' + // East
                         '<div class="winner">Winner: ' + finalFour[1].Team + '</div>' +
                     '</div>';
             html += '</div>';
