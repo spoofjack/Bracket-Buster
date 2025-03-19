@@ -440,17 +440,19 @@
                     "Round of 64": round64Teams,
                     "Round of 32": simulateRound(round64Teams, weights, "Round of 32"),
                     "Sweet 16": null,
-                    "Elite 8": null
+                    "Elite 8": null,
+                    "Regional Champion": null
                 };
                 bracket[region]["Sweet 16"] = simulateRound(bracket[region]["Round of 32"], weights, "Sweet 16");
                 bracket[region]["Elite 8"] = simulateRound(bracket[region]["Sweet 16"], weights, "Elite 8");
+                bracket[region]["Regional Champion"] = bracket[region]["Elite 8"][0]; // Single winner per region
             }
 
             const finalFourTeams = [
-                bracket["East"]["Elite 8"][0],
-                bracket["West"]["Elite 8"][0],
-                bracket["South"]["Elite 8"][0],
-                bracket["Midwest"]["Elite 8"][0]
+                bracket["East"]["Regional Champion"],
+                bracket["West"]["Regional Champion"],
+                bracket["South"]["Regional Champion"],
+                bracket["Midwest"]["Regional Champion"]
             ];
             const finalFour = simulateRound(finalFourTeams, weights, "Final Four");
             const championship = simulateRound(finalFour, weights, "Championship");
@@ -495,15 +497,15 @@
                 const rounds = ["Round of 64", "Round of 32", "Sweet 16", "Elite 8"];
                 rounds.forEach(round => {
                     html += '<div class="round"><h4>' + round + '</h4>';
-                    const nextRound = round === "Round of 64" ? "Round of 32" : 
-                                     round === "Round of 32" ? "Sweet 16" : 
-                                     round === "Sweet 16" ? "Elite 8" : "Final Four";
-                    for (let i = 0; i < bracket[region][round].length - 1; i += 2) {
-                        const team1 = bracket[region][round][i];
-                        const team2 = bracket[region][round][i + 1];
-                        const winner = nextRound === "Final Four" ? 
-                            (finalFour.includes(team1) ? team1 : team2) :
-                            bracket[region][nextRound].includes(team1) ? team1 : team2;
+                    const currentRoundTeams = bracket[region][round];
+                    const nextRoundTeams = round === "Round of 64" ? bracket[region]["Round of 32"] :
+                                          round === "Round of 32" ? bracket[region]["Sweet 16"] :
+                                          round === "Sweet 16" ? bracket[region]["Elite 8"] :
+                                          [bracket[region]["Regional Champion"]];
+                    for (let i = 0; i < currentRoundTeams.length - 1; i += 2) {
+                        const team1 = currentRoundTeams[i];
+                        const team2 = currentRoundTeams[i + 1];
+                        const winner = nextRoundTeams[Math.floor(i / 2)];
                         html += '<div class="matchup">' +
                                     '<div class="team">(' + team1.Seed + ') ' + team1.Team + '</div>' +
                                     '<div class="team">(' + team2.Seed + ') ' + team2.Team + '</div>' +
@@ -515,7 +517,6 @@
                 html += '</div>';
             }
 
-            // Fixed Final Four and Championship display
             html += '<div class="final-four"><h3>Final Four</h3>';
             html += '<div class="matchup">' +
                         '<div class="team">(' + finalFourTeams[0].Seed + ') ' + finalFourTeams[0].Team + '</div>' +
