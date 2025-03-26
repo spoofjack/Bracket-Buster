@@ -218,19 +218,19 @@
         <h3>Custom Weights</h3>
         <div class="weight-input">
             <label data-tooltip="Adjusted Offensive Efficiency: Points scored per 100 possessions, adjusted for opponent strength">AdjO:</label>
-            <input type="number" id="adjO" value="0.30" step="0.01" min="0">
+            <input type="number" id="adjO" value="0.40" step="0.01" min="0">
         </div>
         <div class="weight-input">
             <label data-tooltip="Adjusted Defensive Efficiency: Points allowed per 100 possessions, adjusted for opponent strength">AdjD:</label>
-            <input type="number" id="adjD" value="0.30" step="0.01" min="0">
+            <input type="number" id="adjD" value="0.40" step="0.01" min="0">
         </div>
         <div class="weight-input">
             <label data-tooltip="Adjusted Tempo: Possessions per game, adjusted for opponent pace">AdjT:</label>
-            <input type="number" id="adjT" value="0.20" step="0.01" min="0">
+            <input type="number" id="adjT" value="0.10" step="0.01" min="0">
         </div>
         <div class="weight-input">
             <label data-tooltip="Luck Factor: Difference between actual and expected win percentage">Luck:</label>
-            <input type="number" id="luck" value="0.10" step="0.01" min="0">
+            <input type="number" id="luck" value="0.05" step="0.01" min="0">
         </div>
         <div class="weight-input">
             <label data-tooltip="Upset Probability Multiplier: Increases chance of lower seeds winning">Upset:</label>
@@ -325,7 +325,7 @@
                    (weights.AdjD * (200 - team.AdjD)) +
                    (weights.AdjT * team.AdjT) +
                    (weights.Luck * team.Luck * 100) +
-                   (team.Momentum * 10);
+                   (team.Momentum * 20);
         }
 
         function getUpsetProbability(seed1, seed2) {
@@ -341,8 +341,8 @@
             for (let i = 0; i < simulations; i++) {
                 let score1 = calculateTeamScore(team1, weights);
                 let score2 = calculateTeamScore(team2, weights);
-                const random1 = 0.85 + Math.random() * 0.3;
-                const random2 = 0.85 + Math.random() * 0.3;
+                const random1 = 0.95 + Math.random() * 0.1;
+                const random2 = 0.95 + Math.random() * 0.1;
                 score1 *= random1;
                 score2 *= random2;
                 const seedDiff = Math.abs(team1.Seed - team2.Seed);
